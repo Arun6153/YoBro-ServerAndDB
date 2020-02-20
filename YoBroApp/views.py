@@ -1,6 +1,10 @@
-from django.shortcuts import render
-from django.http import HttpResponse
-# Create your views here.
 
-def list_YoBro(request):
-    return HttpResponse("hey returned")
+from rest_framework import viewsets
+from YoBroApp.serializers import UserSerializer
+from .models import User
+
+
+class UserViewSet(viewsets.ModelViewSet):
+
+    queryset = User.objects.all()
+    serializer_class = UserSerializer
