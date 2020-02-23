@@ -1,10 +1,23 @@
-
-from rest_framework import viewsets
-from YoBroApp.serializers import UserSerializer
+from django.http import HttpResponse, HttpResponseBadRequest
 from .models import User
+from django.views.decorators.csrf import csrf_exempt
+import json
 
 
-class UserViewSet(viewsets.ModelViewSet):
+@csrf_exempt
+def userSignUp(request):
+    if request.method == 'POST':
+        data = json.loads(request.body.decode('utf'))
+        newUser = User(
+            email=data['email'], password=data['password'], address=data['address'])
+        newUser.save()
+        return HttpResponse(status=201)
+    else:
+        return HttpResponseBadRequest('<h3>Not Allowed</h3>')
 
-    queryset = User.objects.all()
-    serializer_class = UserSerializer
+@csrf_exempt
+def userLogin(request):
+    if request.method == 'POST':
+        return HttpResponse(status=200)
+    else:
+        return HttpResponseBadRequest('<h3>Not Allowed</h3>') 
