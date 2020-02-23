@@ -6,7 +6,6 @@ import json
 
 @csrf_exempt
 def userSignUp(request):
-    print("hey")
     if request.method == 'POST':
         data = json.loads(request.body.decode('utf'))
         newUser = User(
@@ -18,7 +17,5 @@ def userSignUp(request):
 @csrf_exempt
 def userLogin(request):
     if request.method == 'POST':
-        data = json.loads(request.body.decode('utf'))
-        print(data)
         return HttpResponse(status=200)
-    return HttpResponseBadRequest('<h3>Not Allowed</h3>')
+    return HttpResponseBadRequest('<h3>Not Allowed</h3>') 
