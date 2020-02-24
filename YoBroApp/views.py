@@ -1,4 +1,4 @@
-from django.http import HttpResponse, HttpResponseBadRequest
+from django.http import HttpResponse, HttpResponseBadRequest, JsonResponse
 from .models import User
 from django.views.decorators.csrf import csrf_exempt
 import json
@@ -23,17 +23,18 @@ def userLogin(request):
         password = data['password']
         if email and password:
             UserTableData = User.objects.all()
-            val = UserTableData.filter(email=email, password=password).first()
+            val = UserTableData.filter(email=email, password=password).values()
             if val:
-                return HttpResponse(status=201)
+                return HttpResponse(JsonResponse({"data":list(val)}),status=200)
     return HttpResponseBadRequest('<h3>Not Allowed</h3>')
 
 @csrf_exempt
 def home(request, id):
     if request.method == 'GET':
         UserTableData = User.objects.all()
-        val = UserTableData.exclude(id=id)
+        val = UserTableData.exclude(id=id).values()
 
-        # print(val)
-        return HttpResponse(val)
+        # print(val.object)
+        return JsonResponse({"data":list(val)})
     return HttpResponseBadRequest('<h3>Not Allowed</h3>')
+
