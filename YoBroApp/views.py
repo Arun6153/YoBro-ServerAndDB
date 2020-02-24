@@ -9,7 +9,7 @@ def userSignUp(request):
     if request.method == 'POST':
         data = json.loads(request.body.decode('utf'))
         newUser = User(
-            email=data['email'], password=data['password'], address=data['address'])
+            email=data['email'], password=data['password'], address=data['address'], name=data['name'])
         newUser.save()
         return HttpResponse(status=201)
     return HttpResponseBadRequest('<h3>Not Allowed</h3>')
