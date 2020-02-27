@@ -1,9 +1,11 @@
 from django.contrib import admin
 from django.urls import path, include
-from rest_framework_simplejwt.views import TokenObtainPairView, TokenRefreshView
+# from rest_framework_simplejwt.views import TokenObtainPairView, TokenRefreshView
 
 urlpatterns = [
-    path('', include('YoBroApp.urls')),
+    path('', include('YoBroChat.urls')),
+    path('chat/', include('YoBroChat.urls')),
+
     path('admin/', admin.site.urls),
     path('api-auth/', include('rest_framework.urls')),
     # path('api/token/', TokenObtainPairView.as_view()),
